@@ -22,6 +22,26 @@ function filter_account_orders_columns( $columns ){
 add_filter( 'woocommerce_account_orders_columns', __NAMESPACE__ . '\\filter_account_orders_columns' );
 
 /**
+ * Filters My Account tabs
+ *
+ * @param      array  $items  Array of tabs for My Account
+ *
+ * @return     array  The filtered array
+ */
+function filter_my_account_tabs($items) {
+    //unset($items['dashboard']);
+    //unset($items['orders']);
+    unset($items['downloads']);
+    //unset($items['edit-address']);
+    //unset($items['payment-methods']);
+    //unset($items['edit-account']);
+    //unset($items['customer-logout']);
+
+    return $items;
+}
+add_filter( 'woocommerce_account_menu_items', __NAMESPACE__ . '\\filter_my_account_tabs', 999 );
+
+/**
  * Rebuilds the WooCommerce Product Category display on the
  * main shop page. It works by discarding the original
  * content and rebuilding it from scratch
