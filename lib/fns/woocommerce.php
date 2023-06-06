@@ -260,10 +260,17 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\\remove_product_image_lightbo
 /**
  * Adds a Register form note.
  */
-function add_register_form_note(){
-    echo '<div style="font-size: .9rem; line-height: 1.25rem; margin: 0 0 1rem 0;"><strong>Important:</strong> If you are creating an account, please note: <ul style="line-height: 1.25rem; margin: 1rem 0; padding-bottom: 0;"><li>The email address you enter above must match the email address we have on file with your certification records.</li></ul>If you create your account and find that your certification records are not published (classes/exams, badge and certification status), please <a href="mailto:certification@b2ttraining.com">email us</a> to update your primary email address to match your certification record associated address.</div>';
-}
-add_action( 'woocommerce_register_form', __NAMESPACE__ . '\\add_register_form_note' );
+add_action( 'woocommerce_register_form', function(){
+  echo '<style>form.woocommerce-form.woocommerce-form-register.register p:nth-child(2){display: none;}</style>';
+  echo '<p>A link to set a new password will be sent to your email address. If you don\'t see an email with the password reset link, please check your spam folder.</p><p><strong>Important:</strong> If you are creating an account, please note:</p><ul style="margin-bottom: 1.1em; padding-left: 30px;"><li style="margin-bottom: 1.1em;">The email address you enter above must match the email address we have on file with your certification records.</li><li>If you create your account and find that your certification records are not published (classes/exams, badge and certification status), please <a href="mailto:certification@b2ttraining.com">email us</a> to update your primary email address to match your certification record associated address.</li></ul>';
+});
+
+/**
+ * Add a Login form note.
+ */
+add_action( 'woocommerce_login_form_end', function(){
+  echo '<p>The method used to access our certification records was updated as of March 1st, 2023. If your B2T Account was created prior to this date please re-register your account using the same e-mail address. We apologize for the inconvenience.</p>';
+});
 
 /**
  * Reverses the order of reviews on WC Product pages.

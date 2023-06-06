@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:     B2T Site Mods
- * Plugin URI:      PLUGIN SITE HERE
+ * Plugin URI:      https://github.com/WenderHost/b2t-site-mods
  * Description:     Various extensions to the B2T Training site.
  * Author:          Michael Wender
  * Author URI:      https://wenmarkdigital.com
  * Text Domain:     b2t-site-mods
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.1.0
  *
  * @package         B2t_Site_Mods
  */
