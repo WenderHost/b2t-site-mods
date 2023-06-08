@@ -268,8 +268,8 @@ add_action( 'woocommerce_register_form', function(){
 /**
  * Add a Login form note.
  */
-add_action( 'woocommerce_login_form_end', function(){
-  echo '<p>The method used to access our certification records was updated as of March 1st, 2023. If your B2T Account was created prior to this date please re-register your account using the same e-mail address. We apologize for the inconvenience.</p>';
+add_action( 'woocommerce_login_form_start', function(){
+  echo '<p>The method used to access our certification records was updated as of March 1, 2023. If your B2T Account was created prior to this date, please use the <strong>"Register"</strong> section of this page to establish a new account to access your records. We apologize for the inconvenience.</p>';
 });
 
 /**
