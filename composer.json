@@ -1,0 +1,20 @@
+{
+    "name": "wenderhost/b2t-site-mods",
+    "description": "Various site modifications for the b2ttraining.com website.",
+    "type": "wordpress-plugin",
+    "require": {
+        "zordius/lightncandy": "^1.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wenderhost\\B2tSiteMods\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Michael Wender",
+            "email": "michael@michaelwender.com"
+        }
+    ]
+}
