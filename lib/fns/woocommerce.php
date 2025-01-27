@@ -7,6 +7,24 @@ namespace b2tmods\woocommere;
  */
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
+
+/**
+ * Add another place for WC to find template overrides.
+ */
+function woocommerce_locate_template( $template, $template_name, $template_path ) {
+  // Define the plugin path where your custom templates are stored.
+  $plugin_path = plugin_dir_path( __FILE__ ) . 'woocommerce/templates/';
+
+  // Check if the requested template exists in your plugin's path.
+  if ( file_exists( $plugin_path . $template_name ) ) {
+    return $plugin_path . $template_name;
+  }
+
+  // If not found in your plugin, return the original template path.
+  return $template;
+}
+add_filter( 'woocommerce_locate_template', __NAMESPACE__ . '\\woocommerce_locate_template', 10, 3 );
+
 /**
  * Removes `order-date` column from My Account > Orders table
  *
