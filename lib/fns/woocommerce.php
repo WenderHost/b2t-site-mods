@@ -272,7 +272,7 @@ add_action( 'woocommerce_register_form', function(){
  */
 //*
 add_action( 'woocommerce_login_form_start', function(){
-  echo '<p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="' . site_url( 'privacy-policy' ); . '">privacy policy</a>.</p>';
+  echo '<p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="' . site_url( 'privacy-policy' ) . '">privacy policy</a>.</p>';
 });
 /**/
 
