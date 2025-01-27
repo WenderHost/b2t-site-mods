@@ -270,9 +270,11 @@ add_action( 'woocommerce_register_form', function(){
 /**
  * Add a Login form note.
  */
+//*
 add_action( 'woocommerce_login_form_start', function(){
-  echo '<p>The method used to access our certification records was updated as of March 1, 2023. If your B2T Account was created prior to this date, please use the <strong>"Register"</strong> section of this page to establish a new account to access your records. We apologize for the inconvenience.</p>';
+  echo '<p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="' . site_url( 'privacy-policy' ); . '">privacy policy</a>.</p>';
 });
+/**/
 
 /**
  * Reverses the order of reviews on WC Product pages.
