@@ -13,7 +13,7 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 
  */
 function woocommerce_locate_template( $template, $template_name, $template_path ) {
   // Define the plugin path where your custom templates are stored.
-  $plugin_path = plugin_dir_path( __FILE__ ) . 'woocommerce/templates/';
+  $plugin_path = B2TMODS_PLUGIN_PATH . 'woocommerce/templates/';
 
   // Check if the requested template exists in your plugin's path.
   if ( file_exists( $plugin_path . $template_name ) ) {
