@@ -1,13 +1,13 @@
 {
     "key": "group_641e00728ebd7",
-    "title": "My Account Options",
+    "title": "B2T Text Fields",
     "fields": [
         {
-            "key": "field_641e00721dc97",
-            "label": "Certification Program Tab",
-            "name": "certification_program_tab",
+            "key": "field_67a6514e43c6c",
+            "label": "WooCommerce Log In",
+            "name": "woocommerce_login_form",
             "aria-label": "",
-            "type": "wysiwyg",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,18 +16,58 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 0,
-            "delay": 0
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_67a6518243c6d",
+                    "label": "Log In Form End",
+                    "name": "end",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Add text to appear below the Log In form.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                },
+                {
+                    "key": "field_67a654e4726cc",
+                    "label": "Register Form End",
+                    "name": "register_end",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Add text to appear below the Register form.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                }
+            ]
         },
         {
-            "key": "field_641e00fe37e13",
-            "label": "Class Exams Tab",
-            "name": "class_exams_tab",
+            "key": "field_67a652ec4552c",
+            "label": "My Account",
+            "name": "my_account",
             "aria-label": "",
-            "type": "wysiwyg",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -36,11 +76,90 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 0,
-            "delay": 0
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_641e00721dc97",
+                    "label": "Certification Program Tab",
+                    "name": "certification_program_tab",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 1,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 0,
+                    "delay": 0
+                },
+                {
+                    "key": "field_641e00fe37e13",
+                    "label": "Class Exams Tab",
+                    "name": "class_exams_tab",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 1,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 0,
+                    "delay": 0
+                }
+            ]
+        },
+        {
+            "key": "field_67a657e279031",
+            "label": "Class Registration",
+            "name": "class_registration",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_67a657f179032",
+                    "label": "Shipping Address Note",
+                    "name": "shipping_address_note",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                }
+            ]
         }
     ],
     "location": [
@@ -48,7 +167,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "my-account-page-options"
+                "value": "b2t-text-field-options"
             }
         ]
     ],
@@ -61,5 +180,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1738942745
+    "modified": 1738954764
 }

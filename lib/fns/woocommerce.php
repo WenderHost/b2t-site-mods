@@ -280,17 +280,27 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\\remove_product_image_lightbo
  */
 //*
 add_action( 'woocommerce_register_form', function(){
-  //echo '<style>form.woocommerce-form.woocommerce-form-register.register p:nth-child(2){display: none;}</style>';
-  //echo '<p>A link to set a new password will be sent to your email address. If you don\'t see an email with the password reset link, please check your spam folder.</p><p><strong>Important:</strong> If you are creating an account, please note:</p><ul style="margin-bottom: 1.1em; padding-left: 30px;"><li style="margin-bottom: 1.1em;">The email address you enter above must match the email address we have on file with your certification records.</li><li>If you create your account and find that your certification records are not published (classes/exams, badge and certification status), please <a href="mailto:certification@b2ttraining.com">email us</a> to update your primary email address to match your certification record associated address.</li></ul>';
-  echo '<p><strong>Important:</strong> If you are creating an account, please note:</p><ul style="margin-bottom: 1.1em; padding-left: 30px;"><li style="margin-bottom: 1.1em;">The email address you enter above must match the email address we have on file with your certification records.</li><li>If you create your account and find that your certification records are not published (classes/exams, badge and certification status), please <a href="mailto:certification@b2ttraining.com">email us</a> to update your primary email address to match your certification record associated address.</li></ul>';  
+  $content = get_field( 'woocommerce_login_form_register_end', 'option' );
+  if( ! empty( $content ) ){
+    echo '<style>.register-form-end ul{margin-bottom: 1.1em; padding-left: 30px;} .register-form-end li{margin-bottom: 1.1em;} .register-form-end li:last-child{margin-bottom: 0;}</style>';
+    echo '<div class="register-form-end">' . $content . '</div>';
+  } else {
+    echo '<p><strong>Important:</strong> If you are creating an account, please note:</p><ul style="margin-bottom: 1.1em; padding-left: 30px;"><li style="margin-bottom: 1.1em;">The email address you enter above must match the email address we have on file with your certification records.</li><li>If you create your account and find that your certification records are not published (classes/exams, badge and certification status), please <a href="mailto:certification@b2ttraining.com">email us</a> to update your primary email address to match your certification record associated address.</li></ul>';    
+  }
 });
 
 /**
  * Add a Login form note.
  */
 //*
-add_action( 'woocommerce_login_form_start', function(){
-  echo '<p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="' . site_url( 'privacy-policy' ) . '">privacy policy</a>.</p>';
+add_action( 'woocommerce_login_form_end', function(){
+  $content = get_field( 'woocommerce_login_form_end', 'option' );
+  if( ! empty( $content ) ){
+    echo '<style>.login-form-end ul{margin-bottom: 1.1em; padding-left: 30px;} .login-form-end li{margin-bottom: 1.1em;} .login-form-end li:last-child{margin-bottom: 0;}</style>';    
+    echo '<div class="login-form-end">' . $content . '</div>';
+  } else {
+    echo '<p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="' . site_url( 'privacy-policy' ) . '">privacy policy</a>.</p>';    
+  }
 });
 /**/
 
