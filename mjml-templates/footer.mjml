@@ -1,0 +1,10 @@
+<mj-section>
+
+  <mj-column>
+    <mj-text align="center" line-height="1.5">
+      &copy; {{year}} B2T Training LLC. All rights reserved.<br/>
+      (972) 640-7076 &bull; 6160 Warren Parkway, Suite 100, Frisco, TX 75034
+    </mj-text>
+  </mj-column>
+
+</mj-section>
