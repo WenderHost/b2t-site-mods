@@ -41,7 +41,7 @@ function wp_custom_email_template( $args ) {
 
   $heading = str_replace( '[' . get_bloginfo( 'name' ) . ']', '', $subject );    
   $heading_array = explode( ' ', trim( $heading ) );
-  if( 1 < count( $heading_array ) ){
+  if( 2 == count( $heading_array ) ){
     for ($i=0; $i < count( $heading_array ); $i++) { 
       if( $i == ( count( $heading_array ) - 1 ) ){
         $new_heading.= ' <span style="color: #EC6B17;">' . $heading_array[$i] . '</span>';
