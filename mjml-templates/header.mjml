@@ -4,7 +4,7 @@
 <mj-section background-color="#fff">
 
   <mj-column>
-    <mj-image src="https://b2ttraining.local/wp-content/plugins/b2t-site-mods/lib/img/b2t-logo_600x200.png" width="200px" />
+    <mj-image src="{{logo}}" width="200px" />
     <mj-text align="center" font-size="32px" font-weight="500" color="#2C3182" text-transform="uppercase" font-family="Ubuntu,Helvetica,Arial,sans-serif">
       {{{heading}}}
     </mj-text>

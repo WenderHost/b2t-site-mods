@@ -4,7 +4,7 @@ Tags: comments, spam
 Requires at least: 6.5.0
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,9 @@ Various extensions to the B2T Training website.
 Long description coming at some point in the future when I get around to it.
 
 == Changelog ==
+
+= 1.4.4 =
+* Correcting logo reference in MJML template (i.e. using `{{logo}}` instead of full path to logo).
 
 = 1.4.3 =
 * BUGFIX: Recompiling `email.hbs` so dynamic logo insertion is added to compiled template.
