@@ -86,7 +86,7 @@ add_filter( 'wp_mail', __NAMESPACE__ . '\\wp_custom_email_template' );
  * @return array Modified email content.
  */
 function password_change_email_content( $wp_password_change_notification_email, $user, $blogname ){
-  $wp_password_change_notification_email['message'] = "<strong>Admin Notice:</strong><br><br>The password was changed for user: {$user->user_login}<br><br>Regards,<br>The B2T WordPress Site";
+  $wp_password_change_notification_email['message'] = "<strong>Admin Notice:</strong><br><br>The password was changed for user: {$user->user_login}";
 
   return $wp_password_change_notification_email;
 }
@@ -104,7 +104,8 @@ add_filter( 'wp_password_change_notification_email', __NAMESPACE__ . '\\password
  * @return array Modified email content.
  */
 function custom_password_change_email( $pass_change_email, $user, $userdata ) {
-  $pass_change_email['message'] = "This notice confirms that the password was reset for the following account on B2T Training:<br><br>Username: {$user->user_login}<br><br>If you did not change your password, or encounter any other issues, please <a href=\"mailto:info@b2ttraining.com\">contact us</a> as soon as possible.";
+  $user_login = $user['user_login'];
+  $pass_change_email['message'] = "This notice confirms that the password was reset for the following account on B2T Training:<br><br>Username: {$user_login}<br><br>If you did not change your password, or encounter any other issues, please <a href=\"mailto:info@b2ttraining.com\">contact us</a> as soon as possible.";
 
   return $pass_change_email;  
 }
