@@ -15,6 +15,17 @@ function wp_custom_email_template( $args ) {
   if ( strpos( $args['message'], '<!DOCTYPE html>' ) === 0 )
       return $args;  
 
+  // Don't apply template to SolidWP emails:
+  foreach ( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ) as $trace ) {
+    if (
+      isset( $trace['file'] ) &&
+      strpos( $trace['file'], 'ithemes-security-pro' ) !== false
+    ) {
+      return $args; // Skip our custom template for SolidWP emails
+    }
+  }
+
+
   // Extracting the email data.
   $to = $args['to'];
   $subject = $args['subject'];
