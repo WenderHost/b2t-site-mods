@@ -4,7 +4,7 @@
 **Requires at least:** 6.5.0  
 **Tested up to:** 6.7  
 **Requires PHP:** 8.2  
-**Stable tag:** 1.4.6  
+**Stable tag:** 1.5.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -15,6 +15,9 @@ Various extensions to the B2T Training website.
 Long description coming at some point in the future when I get around to it.
 
 ## Changelog ##
+
+### 1.5.0 ###
+* Adding Cloudflare Turnstile validation to "Register" form.
 
 ### 1.4.6 ###
 * Removing `uber_log()`.

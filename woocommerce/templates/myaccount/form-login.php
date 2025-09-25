@@ -108,7 +108,9 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 			</p>
 
 			<?php do_action( 'woocommerce_register_form_end' ); ?>
-
+			<?php if ( defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY ) : ?>
+			  <div class="cf-turnstile" data-sitekey="<?php echo esc_attr( CLOUDFLARE_TURNSTILE_SITE_KEY ); ?>"></div>
+			<?php endif; ?>
 		</form>
 
 	</div>
