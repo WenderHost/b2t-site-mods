@@ -20,7 +20,7 @@ function enqueue_turnstile_script() {
       'https://challenges.cloudflare.com/turnstile/v0/api.js',
       [],
       null,
-      true
+      [ 'in_footer' => true, 'strategy' => 'defer' ],
     );
   }
 }
