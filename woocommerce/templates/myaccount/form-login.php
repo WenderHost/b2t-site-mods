@@ -102,15 +102,17 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 			<?php do_action( 'woocommerce_register_form' ); ?>
 
+			<?php if ( defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY ) : ?>
+			  <div class="cf-turnstile" data-theme="light" data-size="normal" data-callback="onSuccess" data-sitekey="<?php echo esc_attr( CLOUDFLARE_TURNSTILE_SITE_KEY ); ?>"></div>
+			<?php endif; ?>
+
 			<p class="woocommerce-form-row form-row">
 				<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
 				<button type="submit" class="woocommerce-Button woocommerce-button button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> woocommerce-form-register__submit" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><?php esc_html_e( 'Register', 'woocommerce' ); ?></button>
 			</p>
 
 			<?php do_action( 'woocommerce_register_form_end' ); ?>
-			<?php if ( defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY ) : ?>
-			  <div class="cf-turnstile" data-theme="light" data-size="normal" data-callback="onSuccess" data-sitekey="<?php echo esc_attr( CLOUDFLARE_TURNSTILE_SITE_KEY ); ?>"></div>
-			<?php endif; ?>
+
 		</form>
 
 	</div>
