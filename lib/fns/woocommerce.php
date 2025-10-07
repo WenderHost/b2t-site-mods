@@ -191,13 +191,12 @@ function course_product_view(){
     remove_action( 'woocommerce_after_single_product_summary', 'Andalu_Woo_Courses_Single::sub_class_table', 7 );
     remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs' );
 
-    add_action( 'woocommerce_before_single_product_summary', 'b2t_divi_wc_course_title_and_tabs', 20 );
     add_action( 'woocommerce_single_product_summary', function(){
         if( has_post_thumbnail() ){
             the_post_thumbnail( 'fullsize', ['style'=>'width: 100%; border: 1px solid #d9d9d9;'] );
         }
     }, 5 );
-    add_filter( 'woocommerce_product_tabs', 'b2t_divi_public_classes_product_tab', 10, 1 );
+
     add_action( 'woocommerce_after_single_product_summary', __NAMESPACE__ . '\\course_product_related_posts', 10, 1 );
 }
 add_action( 'woocommerce_before_single_product', __NAMESPACE__ . '\\course_product_view' );
