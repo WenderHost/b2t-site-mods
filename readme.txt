@@ -4,7 +4,7 @@ Tags: comments, spam
 Requires at least: 6.5.0
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,11 @@ Various extensions to the B2T Training website.
 Long description coming at some point in the future when I get around to it.
 
 == Changelog ==
+
+= 1.5.3 =
+* Updating Cloudflare Turnstile integration such that the form submission button stays disabled until we receive a token back from Cloudflare.
+* Adding error logging for `validate_turnstile_on_register()`.
+* Updating Turnstile error messages to more accurately reflect what is happening.
 
 = 1.5.2 =
 * Removing references to deprecated code related to Divi Builder.

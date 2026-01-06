@@ -103,7 +103,15 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 			<?php do_action( 'woocommerce_register_form' ); ?>
 
 			<?php if ( defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY ) : ?>
-			  <div class="cf-turnstile" data-theme="light" data-size="normal" data-callback="onSuccess" data-sitekey="<?php echo esc_attr( CLOUDFLARE_TURNSTILE_SITE_KEY ); ?>"></div>
+			 <div
+			    class="cf-turnstile"
+			    data-sitekey="<?php echo esc_attr( CLOUDFLARE_TURNSTILE_SITE_KEY ); ?>"
+			    data-theme="light"
+			    data-size="normal"
+			    data-callback="b2tTurnstileOnSuccess"
+			    data-error-callback="b2tTurnstileOnError"
+			    data-expired-callback="b2tTurnstileOnExpired"
+			  ></div>			  
 			<?php endif; ?>
 
 			<p class="woocommerce-form-row form-row">
