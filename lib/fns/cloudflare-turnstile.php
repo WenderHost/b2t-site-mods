@@ -2,8 +2,6 @@
 
 namespace b2tmods\cloudflareturnstile;
 
-// TODO: If CLOUDFLARE_TURNSTILE_SITE_KEY and CLOUDFLARE_TURNSTILE_SECRET_KEY are not set or empty, we also need to show DISABLED in the WP Admin Dashboard Widget (See render_turnstile_dashboard_width()).
-
 /**
  * Checks if Cloudflare Turnstile is enabled.
  *
@@ -13,6 +11,19 @@ namespace b2tmods\cloudflareturnstile;
  */
 function is_turnstile_enabled() {
   return (bool) get_option( 'b2tmods_cf_turnstile_enabled', true );
+}
+
+/**
+ * Checks if Cloudflare Turnstile API keys are configured.
+ *
+ * @since 1.0.0
+ *
+ * @return bool True if both site key and secret key are defined and non-empty.
+ */
+function are_turnstile_keys_configured() {
+  $site_key_set   = defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY;
+  $secret_key_set = defined( 'CLOUDFLARE_TURNSTILE_SECRET_KEY' ) && CLOUDFLARE_TURNSTILE_SECRET_KEY;
+  return $site_key_set && $secret_key_set;
 }
 
 /**
@@ -43,17 +54,26 @@ add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\\register_turnstile_dashboar
  * @return void
  */
 function render_turnstile_dashboard_widget() {
-  $enabled = is_turnstile_enabled();
-  $nonce   = wp_create_nonce( 'b2tmods_cf_turnstile_toggle' );
+  $keys_configured = are_turnstile_keys_configured();
+  $enabled         = is_turnstile_enabled();
+  $nonce           = wp_create_nonce( 'b2tmods_cf_turnstile_toggle' );
   ?>
   <p>
     <strong>Status:</strong>
-    <?php if ( $enabled ) : ?>
+    <?php if ( ! $keys_configured ) : ?>
+      <span style="color: red;">Disabled</span>
+      <span style="font-size: 12px; color: #666;">(API keys not configured)</span>
+    <?php elseif ( $enabled ) : ?>
       <span style="color: green;">Enabled</span>
     <?php else : ?>
       <span style="color: red;">Disabled</span>
     <?php endif; ?>
   </p>
+  <?php if ( ! $keys_configured ) : ?>
+  <p style="font-size: 12px; color: #666;">
+    Turnstile requires <code>CLOUDFLARE_TURNSTILE_SITE_KEY</code> and <code>CLOUDFLARE_TURNSTILE_SECRET_KEY</code> to be defined in wp-config.php.
+  </p>
+  <?php else : ?>
   <p style="font-size: 12px; color: #666;">
     Turnstile protects the registration form from spam. Disable temporarily if users cannot register.
   </p>
@@ -70,6 +90,7 @@ function render_turnstile_dashboard_widget() {
     );
     ?>
   </form>
+  <?php endif; ?>
   <?php
 }
 
