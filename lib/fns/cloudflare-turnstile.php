@@ -2,7 +2,98 @@
 
 namespace b2tmods\cloudflareturnstile;
 
-// TODO: Add a WP Admin Dashboard widget with an on/off toggle for Cloudflare Turnstile (store as an option, e.g. b2tmods_cf_turnstile_enabled). Non-technical admins can disable Turnstile when it’s broken to allow onboarding, and this flag should bypass both enqueue_turnstile_script() and validate_turnstile_on_register().
+/**
+ * Checks if Cloudflare Turnstile is enabled.
+ *
+ * @since 1.0.0
+ *
+ * @return bool True if enabled, false if disabled.
+ */
+function is_turnstile_enabled() {
+  return (bool) get_option( 'b2tmods_cf_turnstile_enabled', true );
+}
+
+/**
+ * Registers the Cloudflare Turnstile dashboard widget.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function register_turnstile_dashboard_widget() {
+  if ( ! current_user_can( 'manage_options' ) ) {
+    return;
+  }
+
+  wp_add_dashboard_widget(
+    'b2tmods_cf_turnstile_widget',
+    'Cloudflare Turnstile',
+    __NAMESPACE__ . '\\render_turnstile_dashboard_widget'
+  );
+}
+add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\\register_turnstile_dashboard_widget' );
+
+/**
+ * Renders the Cloudflare Turnstile dashboard widget content.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function render_turnstile_dashboard_widget() {
+  $enabled = is_turnstile_enabled();
+  $nonce   = wp_create_nonce( 'b2tmods_cf_turnstile_toggle' );
+  ?>
+  <p>
+    <strong>Status:</strong>
+    <?php if ( $enabled ) : ?>
+      <span style="color: green;">Enabled</span>
+    <?php else : ?>
+      <span style="color: red;">Disabled</span>
+    <?php endif; ?>
+  </p>
+  <p style="font-size: 12px; color: #666;">
+    Turnstile protects the registration form from spam. Disable temporarily if users cannot register.
+  </p>
+  <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+    <input type="hidden" name="action" value="b2tmods_cf_turnstile_toggle">
+    <input type="hidden" name="_wpnonce" value="<?php echo esc_attr( $nonce ); ?>">
+    <input type="hidden" name="b2tmods_cf_turnstile_enabled" value="<?php echo $enabled ? '0' : '1'; ?>">
+    <?php
+    submit_button(
+      $enabled ? 'Disable Turnstile' : 'Enable Turnstile',
+      $enabled ? 'secondary' : 'primary',
+      'submit',
+      false
+    );
+    ?>
+  </form>
+  <?php
+}
+
+/**
+ * Handles the Cloudflare Turnstile toggle form submission.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function handle_turnstile_toggle() {
+  if ( ! current_user_can( 'manage_options' ) ) {
+    wp_die( 'Unauthorized', 'Error', array( 'response' => 403 ) );
+  }
+
+  if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'b2tmods_cf_turnstile_toggle' ) ) {
+    wp_die( 'Invalid nonce', 'Error', array( 'response' => 403 ) );
+  }
+
+  $enabled = isset( $_POST['b2tmods_cf_turnstile_enabled'] ) && '1' === $_POST['b2tmods_cf_turnstile_enabled'];
+  update_option( 'b2tmods_cf_turnstile_enabled', $enabled ? 1 : 0 );
+
+  wp_safe_redirect( admin_url( 'index.php' ) );
+  exit;
+}
+add_action( 'admin_post_b2tmods_cf_turnstile_toggle', __NAMESPACE__ . '\\handle_turnstile_toggle' );
 
 
 /**
@@ -17,6 +108,10 @@ namespace b2tmods\cloudflareturnstile;
  * @return void
  */
 function enqueue_turnstile_script() {
+  if ( ! is_turnstile_enabled() ) {
+    return;
+  }
+
   if ( defined( 'CLOUDFLARE_TURNSTILE_SITE_KEY' ) && CLOUDFLARE_TURNSTILE_SITE_KEY && is_account_page() ) {
     wp_enqueue_script(
       'cf-turnstile',
@@ -81,6 +176,10 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_turnstile_script' )
  * @return void
  */
 function validate_turnstile_on_register( $username, $email, $validation_errors ) {
+  if ( ! is_turnstile_enabled() ) {
+    return;
+  }
+
   if ( ! defined( 'CLOUDFLARE_TURNSTILE_SECRET_KEY' ) || ! CLOUDFLARE_TURNSTILE_SECRET_KEY ) {
     return;
   }
