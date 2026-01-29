@@ -2,6 +2,8 @@
 
 namespace b2tmods\cloudflareturnstile;
 
+// TODO: If CLOUDFLARE_TURNSTILE_SITE_KEY and CLOUDFLARE_TURNSTILE_SECRET_KEY are not set or empty, we also need to show DISABLED in the WP Admin Dashboard Widget (See render_turnstile_dashboard_width()).
+
 /**
  * Checks if Cloudflare Turnstile is enabled.
  *
