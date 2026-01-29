@@ -2,6 +2,9 @@
 
 namespace b2tmods\cloudflareturnstile;
 
+// TODO: Add a WP Admin Dashboard widget with an on/off toggle for Cloudflare Turnstile (store as an option, e.g. b2tmods_cf_turnstile_enabled). Non-technical admins can disable Turnstile when it’s broken to allow onboarding, and this flag should bypass both enqueue_turnstile_script() and validate_turnstile_on_register().
+
+
 /**
  * Enqueues the Cloudflare Turnstile JavaScript on the WooCommerce account page.
  *
