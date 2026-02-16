@@ -149,28 +149,103 @@ function enqueue_turnstile_script() {
 
     $inline_js = <<<JS
 (function() {
+  var turnstileTimeoutMs = 3000;
+  var turnstileLoaded = false;
+  var fallbackTimer = null;
+
+  function getRegisterButton() {
+    return document.querySelector('form.woocommerce-form-register button[type="submit"], form.register button[type="submit"]');
+  }
+
   function setDisabled(isDisabled) {
-    var btn = document.querySelector('form.woocommerce-form-register button[type="submit"], form.register button[type="submit"]');
+    var btn = getRegisterButton();
     if (btn) {
       btn.disabled = !!isDisabled;
     }
   }
 
-  // Start disabled until Turnstile gives us a token.
+  function getWidget() {
+    return document.querySelector('form.woocommerce-form-register .cf-turnstile, form.register .cf-turnstile');
+  }
+
+  function hasRendered(widget) {
+    return !!(widget && widget.querySelector('iframe'));
+  }
+
+  function getMessageEl(widget) {
+    if (!widget || !widget.parentNode) {
+      return null;
+    }
+    var existing = widget.parentNode.querySelector('.b2t-turnstile-message');
+    if (existing) {
+      return existing;
+    }
+    var msg = document.createElement('p');
+    msg.className = 'b2t-turnstile-message';
+    msg.setAttribute('role', 'alert');
+    msg.style.marginTop = '8px';
+    msg.style.color = '#b32d2e';
+    msg.style.fontSize = '0.9em';
+    widget.parentNode.insertBefore(msg, widget.nextSibling);
+    return msg;
+  }
+
+  function showMessage(text) {
+    var widget = getWidget();
+    var msg = getMessageEl(widget);
+    if (msg) {
+      msg.textContent = text;
+    }
+  }
+
+  function clearMessage() {
+    var widget = getWidget();
+    var msg = widget ? widget.parentNode.querySelector('.b2t-turnstile-message') : null;
+    if (msg) {
+      msg.textContent = '';
+    }
+  }
+
+  function markTurnstileLoaded() {
+    turnstileLoaded = true;
+    if (fallbackTimer) {
+      window.clearTimeout(fallbackTimer);
+      fallbackTimer = null;
+    }
+  }
+
+  // Start disabled until Turnstile gives us a token. If it never loads, re-enable.
   document.addEventListener('DOMContentLoaded', function() {
+    var widget = getWidget();
+    if (!widget) {
+      return;
+    }
+
     setDisabled(true);
+
+    fallbackTimer = window.setTimeout(function() {
+      if (!turnstileLoaded && typeof window.turnstile === 'undefined' && !hasRendered(widget)) {
+        setDisabled(false);
+        showMessage('Security check did not load. If you declined cookies or use a blocker, allow security cookies and reload to complete registration.');
+      }
+    }, turnstileTimeoutMs);
   });
 
   // Turnstile callbacks (wired via data-* attributes on the widget div).
   window.b2tTurnstileOnSuccess = function(token) {
+    markTurnstileLoaded();
+    clearMessage();
     setDisabled(false);
   };
 
   window.b2tTurnstileOnError = function() {
+    markTurnstileLoaded();
     setDisabled(true);
+    showMessage('Security check failed to load. Please allow security cookies and reload to continue.');
   };
 
   window.b2tTurnstileOnExpired = function() {
+    markTurnstileLoaded();
     setDisabled(true);
   };
 })();
