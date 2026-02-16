@@ -7,7 +7,7 @@
  * Author URI:      https://wenmarkdigital.com
  * Text Domain:     b2t-site-mods
  * Domain Path:     /languages
- * Version:         1.5.5
+ * Version:         1.5.6
  * @package         B2t_Site_Mods
  */
 
