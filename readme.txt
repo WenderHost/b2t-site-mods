@@ -4,7 +4,7 @@ Tags: comments, spam
 Requires at least: 6.5.0
 Tested up to: 6.7
 Requires PHP: 8.2
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,9 @@ Various extensions to the B2T Training website.
 Long description coming at some point in the future when I get around to it.
 
 == Changelog ==
+
+= 1.5.7 =
+* Adding `data-categories="essential"` to Cloudflare Turnstile script tags.
 
 = 1.5.6 =
 * Re-enable user register submit button if Cloudflare Turnstile doesn't load.

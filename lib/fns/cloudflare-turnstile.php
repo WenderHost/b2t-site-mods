@@ -258,6 +258,31 @@ JS;
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_turnstile_script' );
 
 /**
+ * Marks the Turnstile script as essential for Termly's auto-blocker.
+ *
+ * @since 1.0.0
+ *
+ * @param string $tag    The <script> tag for the enqueued script.
+ * @param string $handle The script handle.
+ * @param string $src    The script source URL.
+ *
+ * @return string
+ */
+function add_turnstile_script_categories_attribute( $tag, $handle, $src ) {
+  if ( 'cf-turnstile' !== $handle ) {
+    return $tag;
+  }
+
+  if ( false !== strpos( $tag, 'data-categories=' ) ) {
+    return $tag;
+  }
+
+  return str_replace( '<script ', '<script data-categories="essential" ', $tag );
+}
+
+add_filter( 'script_loader_tag', __NAMESPACE__ . '\\add_turnstile_script_categories_attribute', 10, 3 );
+
+/**
  * Validates the Cloudflare Turnstile CAPTCHA during WooCommerce registration.
  *
  * This function checks for the presence of a Turnstile response token
